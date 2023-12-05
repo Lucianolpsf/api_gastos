@@ -32,6 +32,5 @@ class postoCombustivelController {
         const rows = await postoCombustivelModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new postoCombustivelController()

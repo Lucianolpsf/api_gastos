@@ -32,6 +32,5 @@ class corController {
         const rows = await corModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new corController()

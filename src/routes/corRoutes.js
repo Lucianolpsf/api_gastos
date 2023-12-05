@@ -2,11 +2,11 @@ const express = require('express')
 const corRoutes = express.Router()
 const corController = require('../controllers/corController')
 
-corRoutes.get('/cores', corController.index)
-corRoutes.post('/cores', corController.store)
-corRoutes.get('/cores/:id', corController.show)
-corRoutes.put('/cores/:id', corController.update)
-corRoutes.delete('/cores/:id', corController.delete)
+corRoutes.get('/cor', corController.index)
+corRoutes.post('/cor', corController.store)
+corRoutes.get('/cor/:id', corController.show)
+corRoutes.put('/cor/:id', corController.update)
+corRoutes.delete('/cor/:id', corController.delete)
 
 module.exports = corRoutes
 

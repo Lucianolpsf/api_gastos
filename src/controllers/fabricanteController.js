@@ -32,6 +32,5 @@ class fabricanteController {
         const rows = await fabricanteModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new fabricanteController()

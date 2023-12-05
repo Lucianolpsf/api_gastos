@@ -32,6 +32,5 @@ class categoriaController {
         const rows = await categoriaModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new categoriaController()

@@ -32,6 +32,5 @@ class combustivelController {
         const rows = await combustivelModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new combustivelController()

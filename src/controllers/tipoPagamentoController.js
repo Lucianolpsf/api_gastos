@@ -32,6 +32,5 @@ class tipoPagamentoController {
         const rows = await tipoPagamentoModel.delete(id)
         res.json(rows)
     }
-
 }
 module.exports = new tipoPagamentoController()

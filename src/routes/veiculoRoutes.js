@@ -2,10 +2,10 @@ const express = require('express')
 const veiculoRoutes = express.Router()
 const veiculoController = require('../controllers/veiculoController')
 
-veiculoRoutes.get('/veiculos', veiculoController.index)
-veiculoRoutes.post('/veiculos', veiculoController.store)
-veiculoRoutes.get('/veiculos/:id', veiculoController.show)
-veiculoRoutes.put('/veiculos/:id', veiculoController.update)
-veiculoRoutes.delete('/veiculos/:id', veiculoController.delete)
+veiculoRoutes.get('/veiculo', veiculoController.index)
+veiculoRoutes.post('/veiculo', veiculoController.store)
+veiculoRoutes.get('/veiculo/:id', veiculoController.show)
+veiculoRoutes.put('/veiculo/:id', veiculoController.update)
+veiculoRoutes.delete('/veiculo/:id', veiculoController.delete)
 
 module.exports = veiculoRoutes
