@@ -5,9 +5,9 @@ class categoriaController {
     async index(req, res){
         try {
             const rows = await categoriaModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -17,7 +17,7 @@ class categoriaController {
             const rows = await categoriaModel.create(categoria)
             res.status(201).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -25,9 +25,9 @@ class categoriaController {
         try {
             const id = req.params.id
             const rows = await categoriaModel.findById(id)
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -36,9 +36,9 @@ class categoriaController {
             const id = req.params.id
             const categoria = req.body
             const rows = await categoriaModel.update(categoria,id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -46,9 +46,9 @@ class categoriaController {
         try {
             const id = req.params.id
             const rows = await categoriaModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

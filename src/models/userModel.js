@@ -1,4 +1,5 @@
 const connection = require('../database/db')
+const requests = require('../helpers/request')
 
 class userModel{
 
@@ -29,22 +30,13 @@ class userModel{
                         }else{
                             return resolve( {
                                 message: "User inserido com sucesso",
-                                request: {
-                                    method: "GET",
-                                    description:"Para retornar todos os usuarios",
-                                    url: process.env.URL_API + '/user'
-                                },  
-                                users: {
+                                user: {
                                     id_user: resultado.insertId,
                                     nome: user.nome,
                                     nickname: user.nickname,
-                                    email: user.email,
-                                    request: {
-                                        method: "PUT",
-                                        description:"Para para atualisar este user",
-                                        url: process.env.URL_API + '/user/'+ resultado.insertId
-                                    }
-                                }
+                                    email: user.email
+                                },
+                                request: requests('user')
                             })
                         }
                     })
@@ -65,28 +57,13 @@ class userModel{
                     return reject({erro: erro})
                 }else{
                     return resolve( {
-                        request: {
-                            method: "POST",
-                            description:"Para inserir novos usuarios",
-                            url: process.env.URL_API + '/user',
-                            body: {
-                                nome: 'string',
-                                nickname: 'string',
-                                email: 'string',
-                                password: 'string'
-                            }
-                        },
+                        request: requests('user'),
                         users: resultado.map( user => {
                             return{
                                 id_user: user.id_user,
                                 nome: user.nome,
                                 nickname: user.nickname,
-                                email: user.email,
-                                request: {
-                                    method: "GET",
-                                    description:"Para mais detalhes deste user",
-                                    url: process.env.URL_API + '/user/'+ user.id_user
-                                }
+                                email: user.email
                             }
                         })
                     })
@@ -115,22 +92,13 @@ class userModel{
                 }else{
                     return resolve( {
                         message: "User atualizado com sucesso",
-                        request: {
-                            method: "GET",
-                            description:"Para retornar todos os usuarios",
-                            url: process.env.URL_API + '/user'
-                        },  
                         users: {
                             id_user: id,
                             nome: user.nome,
                             nickname: user.nickname,
-                            email: user.email,
-                            request: {
-                                method: "DELETE",
-                                description:"Para para excluir este user",
-                                url: process.env.URL_API + '/user/'+ id
-                            }
-                        }
+                            email: user.email
+                        },
+                        request: requests('user')
                     })
                 }
             })
@@ -147,17 +115,7 @@ class userModel{
                 }else{
                     return resolve( {
                         message: "User deletado com sucesso",
-                        request: {
-                            method: "POST",
-                            description:"Para inserir novos usuarios",
-                            url: process.env.URL_API + '/user',
-                            body: {
-                                nome: 'string',
-                                nickname: 'string',
-                                email: 'string',
-                                password: 'string'
-                            }
-                        }
+                        request: requests('user')
                     })
                 }
             })
@@ -175,22 +133,13 @@ class userModel{
                     return reject(erro)
                 }else{
                     return resolve( {
-                        request: {
-                            method: "POST",
-                            description:"Para inserir novos usuarios",
-                            url: process.env.URL_API + '/user'
-                        },
                         users: {
                             id_user: resultado[0].id_user,
                             nome: resultado[0].nome,
                             nickname: resultado[0].nickname,
-                            email: resultado[0].email,
-                            request: {
-                                method: "GET",
-                                description:"Para mais detalhes deste user",
-                                url: process.env.URL_API + '/user/'+ resultado[0].id_user
-                            }
-                        }
+                            email: resultado[0].email
+                        },
+                        request: requests('user')
                     })
                 }
             })

@@ -5,9 +5,9 @@ class userController {
     async index(req, res){
         try {
             const rows = await userModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -18,7 +18,7 @@ class userController {
             res.status(201).json(rows)
 
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -26,10 +26,9 @@ class userController {
         try {
             const id = req.params.id
             const rows = await userModel.findById(id)
-            res.json(rows)
-
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -38,11 +37,11 @@ class userController {
             const id = req.params.id
             const user = req.body
             const rows = await userModel.update(user,id)
-            res.json(rows)
+            res.status(202).json(rows)
 
         } catch (error) {
 
-            res.json(error)
+            res.status(500).json(error)
         }
 
     }
@@ -51,10 +50,10 @@ class userController {
         try {
             const id = req.params.id
             const rows = await userModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
 
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

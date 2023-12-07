@@ -5,9 +5,9 @@ class corController {
     async index(req, res){
         try {
             const rows = await corModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -17,7 +17,7 @@ class corController {
             const rows = await corModel.create(cor)
             res.status(201).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -25,9 +25,9 @@ class corController {
         try {
             const id = req.params.id
             const rows = await corModel.findById(id)
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -36,9 +36,9 @@ class corController {
             const id = req.params.id
             const cor = req.body
             const rows = await corModel.update(cor,id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -46,9 +46,9 @@ class corController {
         try {
             const id = req.params.id
             const rows = await corModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

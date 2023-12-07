@@ -6,7 +6,7 @@ class fabricanteController {
     async index(req, res){
         try {
             const rows = await fabricanteModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
             res,json(error)
         }
@@ -18,7 +18,7 @@ class fabricanteController {
             const rows = await fabricanteModel.create(fabricante)
             res.status(201).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -26,9 +26,9 @@ class fabricanteController {
         try {
             const id = req.params.id
             const rows = await fabricanteModel.findById(id)
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -37,9 +37,9 @@ class fabricanteController {
             const id = req.params.id
             const fabricante = req.body
             const rows = await fabricanteModel.update(fabricante,id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -47,9 +47,9 @@ class fabricanteController {
         try {
             const id = req.params.id
             const rows = await fabricanteModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

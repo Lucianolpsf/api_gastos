@@ -5,9 +5,9 @@ class tipoPagamentoController {
     async index(req, res){
         try {
             const rows = await tipoPagamentoModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -17,7 +17,7 @@ class tipoPagamentoController {
             const rows = await tipoPagamentoModel.create(tipoPagamento)
             res.status(201).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -25,9 +25,9 @@ class tipoPagamentoController {
         try {
             const id = req.params.id
             const rows = await tipoPagamentoModel.findById(id)
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -36,9 +36,9 @@ class tipoPagamentoController {
             const id = req.params.id
             const tipoPagamento = req.body
             const rows = await tipoPagamentoModel.update(tipoPagamento,id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
 
     }
@@ -47,9 +47,9 @@ class tipoPagamentoController {
         try {
             const id = req.params.id
             const rows = await tipoPagamentoModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

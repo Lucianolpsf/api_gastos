@@ -5,9 +5,9 @@ class abastecimentoController {
     async index(req, res){
         try {
             const rows = await abastecimentoModel.findAll()
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -17,7 +17,7 @@ class abastecimentoController {
             const rows = await abastecimentoModel.create(abastecimento)
             res.status(201).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -25,9 +25,9 @@ class abastecimentoController {
         try {
             const id = req.params.id
             const rows = await abastecimentoModel.findById(id)
-            res.json(rows)
+            res.status(200).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -36,9 +36,9 @@ class abastecimentoController {
             const id = req.params.id
             const abastecimento = req.body
             const rows = await abastecimentoModel.update(abastecimento,id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
     
@@ -46,9 +46,9 @@ class abastecimentoController {
         try {
             const id = req.params.id
             const rows = await abastecimentoModel.delete(id)
-            res.json(rows)
+            res.status(202).json(rows)
         } catch (error) {
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }
