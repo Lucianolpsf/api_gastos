@@ -12,38 +12,32 @@ class userModel{
             user.email,
             user.password
         ]
-
         
         const resolve =  new Promise((resolve, reject)=>{
             
             connection.query('SELECT email FROM tb_user WHERE email = ? ', user.email, (erro , resultado)=>{
                 if(erro){return reject(erro)}
 
-                if(resultado.length >= 1){
-                    return resolve({
-                        mensagem: 'Usuario ja cadastrado.'
+                if(resultado.length >= 1){return reject({ mensagem: 'Usuario ja cadastrado.'})}
+                
+                connection.query(sql, values, (erro, resultado)=>{
+                    
+                    if(erro){return reject(erro)}
+                        
+                    return resolve( {
+                        message: "User inserido com sucesso",
+                        status: 201,
+                        user: {
+                            id_user: resultado.insertId,
+                            nome: user.nome,
+                            nickname: user.nickname,
+                            email: user.email
+                        },
+                        request: requests('user')
                     })
-                }else{
-                    connection.query(sql, values, (erro, resultado)=>{
-                        if(erro){
-                            return reject(erro)
-                        }else{
-                            return resolve( {
-                                message: "User inserido com sucesso",
-                                user: {
-                                    id_user: resultado.insertId,
-                                    nome: user.nome,
-                                    nickname: user.nickname,
-                                    email: user.email
-                                },
-                                request: requests('user')
-                            })
-                        }
-                    })
-                }
+                })
             })
         })
-
         return resolve
     }
 
@@ -53,24 +47,22 @@ class userModel{
         const resolve = new Promise((resolve, reject)=>{
 
             connection.query(sql, (erro, resultado)=>{
-                if(erro){
-                    return reject({erro: erro})
-                }else{
-                    return resolve( {
-                        request: requests('user'),
-                        users: resultado.map( user => {
-                            return{
-                                id_user: user.id_user,
-                                nome: user.nome,
-                                nickname: user.nickname,
-                                email: user.email
-                            }
-                        })
+                if(erro){return reject({erro: erro})}
+                
+                return resolve( {
+                    request: requests('user'),
+                    status: 200,
+                    users: resultado.map( user => {
+                        return{
+                            id_user: user.id_user,
+                            nome: user.nome,
+                            nickname: user.nickname,
+                            email: user.email
+                        }
                     })
-                }
+                })
             })
         })
-
         return resolve
     }
     
@@ -86,12 +78,18 @@ class userModel{
         ]
 
         const resolve = new Promise((resolve, reject)=>{
-            connection.query(sql, values, (erro, resultado)=>{
-                if(erro){
-                    return reject(erro)
-                }else{
+
+            connection.query('SELECT id_user FROM tb_user WHERE id_user = ? ', id, (erro , resultado)=>{
+                if(erro){return reject(erro)}
+
+                if(resultado <=1){return reject({mensagem: 'Usuario não encontrado'})}
+
+                connection.query(sql, values, (erro, resultado)=>{
+                    if(erro){return reject(erro)}
+    
                     return resolve( {
                         message: "User atualizado com sucesso",
+                        status: 202,
                         users: {
                             id_user: id,
                             nome: user.nome,
@@ -100,7 +98,7 @@ class userModel{
                         },
                         request: requests('user')
                     })
-                }
+                })
             })
         })
         return resolve;
@@ -109,15 +107,21 @@ class userModel{
     delete(id){
         const sql = 'DELETE FROM tb_user WHERE id_user = ?'
         const resolve = new Promise((resolve, reject)=>{
-            connection.query(sql, id, (erro, resultado)=>{
-                if(erro){
-                    return reject(erro)
-                }else{
+
+            connection.query('SELECT id_user FROM tb_user WHERE id_user = ? ', id, (erro , resultado)=>{
+                if(erro){return reject(erro)}
+
+                if(resultado <=1){return reject({mensagem: 'Usuario não encontrado'})}
+
+                connection.query(sql, id, (erro, resultado)=>{
+                    if(erro){return reject(erro)}
+    
                     return resolve( {
                         message: "User deletado com sucesso",
+                        status: 202,
                         request: requests('user')
                     })
-                }
+                })
             })
         })
         return resolve;
@@ -126,25 +130,27 @@ class userModel{
     findById(id){
         const sql = 'SELECT * FROM tb_user WHERE id_user = ?;'
 
-        const console = new Promise((resolve, reject)=>{
+        const resolve = new Promise((resolve, reject)=>{
 
             connection.query(sql, id, (erro, resultado)=>{
-                if(erro){
-                    return reject(erro)
-                }else{
-                    return resolve( {
-                        users: {
-                            id_user: resultado[0].id_user,
-                            nome: resultado[0].nome,
-                            nickname: resultado[0].nickname,
-                            email: resultado[0].email
-                        },
-                        request: requests('user')
-                    })
-                }
+                if(erro){return reject(erro)}
+                
+                if (resultado <= 1){return reject({mensagem: 'Usuario não encontrado'})}
+
+                return resolve( {
+                    mensagem: 'Usuario localizado',
+                    status: 200,
+                    users: {
+                        id_user: resultado[0].id_user,
+                        nome: resultado[0].nome,
+                        nickname: resultado[0].nickname,
+                        email: resultado[0].email
+                    },
+                    request: requests('user')
+                })
             })
         })
-        return console
+        return resolve
     }
 }
 
