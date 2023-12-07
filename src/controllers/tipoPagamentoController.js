@@ -3,34 +3,55 @@ const tipoPagamentoModel = require("../models/tipoPagamentoModel")
 class tipoPagamentoController {
 
     async index(req, res){
-        const rows = await tipoPagamentoModel.findAll()
-        res.json(rows)
+        try {
+            const rows = await tipoPagamentoModel.findAll()
+            res.json(rows)
+        } catch (error) {
+            res.json(error)
+        }
     }
 
     async store(req, res){
-        const tipoPagamento = req.body
-        const rows = await tipoPagamentoModel.create(tipoPagamento)
-        res.json(rows)
+        try {
+            const tipoPagamento = req.body
+            const rows = await tipoPagamentoModel.create(tipoPagamento)
+            res.status(201).json(rows)
+        } catch (error) {
+            res.json(error)
+        }
     }
     
     async show(req, res){
-        const id = req.params.id
-        const rows = await tipoPagamentoModel.findById(id)
-        res.json(rows)
+        try {
+            const id = req.params.id
+            const rows = await tipoPagamentoModel.findById(id)
+            res.json(rows)
+        } catch (error) {
+            res.json(error)
+        }
     }
     
     async update(req, res){
-        const id = req.params.id
-        const tipoPagamento = req.body
-        const rows = await tipoPagamentoModel.update(tipoPagamento,id)
-        res.json(rows)
+        try {
+            const id = req.params.id
+            const tipoPagamento = req.body
+            const rows = await tipoPagamentoModel.update(tipoPagamento,id)
+            res.json(rows)
+        } catch (error) {
+            res.json(error)
+        }
 
     }
     
     async delete(req, res){
-        const id = req.params.id
-        const rows = await tipoPagamentoModel.delete(id)
-        res.json(rows)
+        try {
+            const id = req.params.id
+            const rows = await tipoPagamentoModel.delete(id)
+            res.json(rows)
+        } catch (error) {
+            res.json(error)
+        }
     }
 }
+
 module.exports = new tipoPagamentoController()
