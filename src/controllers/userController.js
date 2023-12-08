@@ -26,7 +26,11 @@ class userController {
         try {
             const id = req.params.id
             const rows = await userModel.findById(id)
-            res.status(200).json(rows)
+            if(rows.status == 404){
+                res.status(404).json(rows)
+            }else{
+                res.status(200).json(rows)
+            }
         } catch (error) {
             res.status(500).json(error)
         }
@@ -37,20 +41,27 @@ class userController {
             const id = req.params.id
             const user = req.body
             const rows = await userModel.update(user,id)
-            res.status(202).json(rows)
+            if(rows.status == 404){
+                res.status(404).json(rows)
+            }else{
+                res.status(202).json(rows)
+            }
 
         } catch (error) {
 
             res.status(500).json(error)
         }
-
     }
     
     async delete(req, res){
         try {
             const id = req.params.id
             const rows = await userModel.delete(id)
-            res.status(202).json(rows)
+            if(rows.status == 404){
+                res.status(404).json(rows)
+            }else{
+                res.status(202).json(rows)
+            }
 
         } catch (error) {
             res.status(500).json(error)
