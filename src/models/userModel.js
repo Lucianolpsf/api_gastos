@@ -11,19 +11,19 @@ const user_body =  {
 
 class userModel{
 
-	create(user){
+	create({nome, nickname, email, password}){
 		const sql = 'INSERT INTO tb_user (nome, nickname, email, password) VALUES (?, ?, ?, ?);';
 
 		const values = [
-			user.nome,
-			user.nickname,
-			user.email,
-			user.password
+			nome,
+			nickname,
+			email,
+			password
 		];
         
 		const resolve =  new Promise((resolve, reject)=>{
             
-			connection.query('SELECT email FROM tb_user WHERE email = ? ', user.email, (erro , resultado)=>{
+			connection.query('SELECT email FROM tb_user WHERE email = ? ', email, (erro , resultado)=>{
 				if(erro){return reject(erro);}
 
 				if(resultado.length >= 1){return reject({ mensagem: 'Usuario ja cadastrado.'});}
@@ -37,9 +37,9 @@ class userModel{
 						status: 201,
 						user: {
 							id_user: resultado.insertId,
-							nome: user.nome,
-							nickname: user.nickname,
-							email: user.email
+							nome,
+							nickname,
+							email
 						},
 						request: requests('user', user_body)
 					});
@@ -50,7 +50,7 @@ class userModel{
 	}
 
 	findAll(){
-		const sql = 'SELECT * FROM tb_user;';
+		const sql = 'SELECT DISTINCT id_user , nome, nickname , email FROM vw_motorista_veiculo;';
 
 		const resolve = new Promise((resolve, reject)=>{
 
@@ -60,12 +60,12 @@ class userModel{
 				return resolve( {
 					request: requests('user', user_body),
 					status: 200,
-					users: resultado.map( user => {
+					users: resultado.map( ({id_user, nome, nickname , email})=> {
 						return{
-							id_user: user.id_user,
-							nome: user.nome,
-							nickname: user.nickname,
-							email: user.email
+							id_user,
+							nome,
+							nickname,
+							email
 						};
 					})
 				});
@@ -74,20 +74,20 @@ class userModel{
 		return resolve;
 	}
     
-	update(user, id){
+	update({nome, nickname, email, password}, id){
 		const sql = 'UPDATE tb_user SET nome =?, nickname =?, email =?, password =? WHERE id_user = ?';
 
 		const values = [
-			user.nome,
-			user.nickname,
-			user.email,
-			user.password,
+			nome,
+			nickname,
+			email,
+			password,
 			id
 		];
 
 		const resolve = new Promise((resolve, reject)=>{
 
-			connection.query('SELECT id_user FROM tb_user WHERE id_user = ? ', id, (erro , resultado)=>{
+			connection.query('SELECT id_user FROM vw_motorista_veiculo WHERE id_user = ? ', id, (erro , resultado)=>{
 				if(erro){return reject(erro);}
 
 				if(resultado < 1){return resolve({
@@ -104,9 +104,9 @@ class userModel{
 						status: 202,
 						users: {
 							id_user: id,
-							nome: user.nome,
-							nickname: user.nickname,
-							email: user.email
+							nome,
+							nickname,
+							email
 						},
 						request: requests('user', user_body)
 					});
@@ -144,7 +144,7 @@ class userModel{
 	}
     
 	findById(id){
-		const sql = 'SELECT * FROM tb_user WHERE id_user = ?;';
+		const sql = 'SELECT * FROM vw_motorista_veiculo WHERE id_user = ?;';
 
 		const resolve = new Promise((resolve, reject)=>{
 

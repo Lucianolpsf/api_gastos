@@ -10,7 +10,7 @@ const userRoutes = require('./userRoutes');
 const veiculoRoutes = require('./veiculoRoutes');
 
 
-const appRoutes = [
+const routes = [
 	abastecimentoRotes,
 	categoriaRoutes,
 	combustivelRoutes,
@@ -23,4 +23,4 @@ const appRoutes = [
 	veiculoRoutes
 ];
 
-module.exports = appRoutes;
+module.exports = routes;
