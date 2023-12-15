@@ -13,10 +13,7 @@ const veiculo = {
 class veiculoModel {
 
 	create(veiculo){
-		const sql = `INSERT INTO tb_veiculo 
-                        (fabricante, modelo, ano_fabricacao, ano_modelo, placa, cor, motorista)
-                    VALUES
-                        (?,?,?,?,?,?,?)`;
+		const sql = 'CALL sp_insert_veiculo(?,?,?,?,?,?,?);';
 
 		const values = [
 			veiculo.fabricante,

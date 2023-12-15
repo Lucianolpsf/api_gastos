@@ -12,7 +12,7 @@ const user_body =  {
 class userModel{
 
 	create({nome, nickname, email, password}){
-		const sql = 'INSERT INTO tb_user (nome, nickname, email, password) VALUES (?, ?, ?, ?);';
+		const sql = 'CALL sp_insert_user(?, ?, ?, ?);';
 
 		const values = [
 			nome,
